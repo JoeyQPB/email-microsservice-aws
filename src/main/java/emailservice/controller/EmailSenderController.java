@@ -1,4 +1,4 @@
-package controller;
+package emailservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import exceptions.EmailServiceException;
-import usecases.IEmailSenderService;
-import usecases.DTO.EmailResquestDTO;
+import emailservice.exceptions.EmailServiceException;
+import emailservice.infra.ses.SesEmailSender;
+import emailservice.usecases.IEmailSenderService;
+import emailservice.usecases.DTO.EmailResquestDTO;
 
 @RestController
 @RequestMapping("/api/email")
@@ -19,17 +20,18 @@ public class EmailSenderController {
 	private IEmailSenderService emailSenderService;
 
 	@Autowired
-	public EmailSenderController(IEmailSenderService emailSender) {
+	public EmailSenderController(IEmailSenderService emailSender, SesEmailSender ses) {
 		this.emailSenderService = emailSender;
 	}
 
-	@PostMapping("/")
+	@PostMapping(value = "/send")
 	public ResponseEntity<String> sendEmail(@RequestBody EmailResquestDTO emailRequst) {
 		try {
 			this.emailSenderService.sendEmail(emailRequst.to(), emailRequst.subject(), emailRequst.body());
 			return ResponseEntity.ok("Email send successfully");
 
 		} catch (EmailServiceException e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while sending email!");
 		}
 	}

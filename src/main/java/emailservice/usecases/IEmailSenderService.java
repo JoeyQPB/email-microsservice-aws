@@ -1,4 +1,4 @@
-package usecases;
+package emailservice.usecases;
 
 public interface IEmailSenderService {
 	

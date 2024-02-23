@@ -1,9 +1,9 @@
-package application;
+package emailservice.application;
 
 import org.springframework.stereotype.Service;
 
-import adapters.IEmailSenderGatway;
-import usecases.IEmailSenderService;
+import emailservice.adapters.IEmailSenderGatway;
+import emailservice.usecases.IEmailSenderService;
 
 @Service
 public class EmailSenderService implements IEmailSenderService {

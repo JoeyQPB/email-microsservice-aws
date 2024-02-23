@@ -1,4 +1,4 @@
-package adapters;
+package emailservice.adapters;
 
 public interface IEmailSenderGatway {
 	

@@ -1,4 +1,4 @@
-package exceptions;
+package emailservice.exceptions;
 
 public class EmailServiceException extends RuntimeException {
 
